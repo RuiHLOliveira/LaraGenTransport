@@ -24,24 +24,17 @@
         border: 1px solid #3e4956;
         box-shadow: none;
     }
-    .loginContainer .btn-default {
-        color: #eeeeee;
-        background-color: #1890ff;
-        border: 1px solid #3e4956;
-    }
 </style>
 <div class="loginContainer backgroundcolor">
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
-        {{-- linha 1 --}}
         <div class="form-group row">
             <div class="col-md-12 text-center">
                 <h4 class="font-weight-bold">Login Form</h4>
             </div>
         </div>
 
-        {{-- linha 2 --}}
         <div class="form-group row">
             <div class="col-md-12">
                 <input id="email" placeholder="your e-mail" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
@@ -53,7 +46,6 @@
             </div>
         </div>
 
-        {{-- linha 3 --}}
         <div class="form-group row">
             <div class="col-md-12">
                 <input id="password" placeholder="your password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
@@ -87,15 +79,14 @@
             </div>
         </div>
 
-        @if (Route::has('password.request'))
-            <div class="form-group row">
-                <div class="col-md-12">
-                    <a class="btn btn-default form-control" href="{{ route('password.request') }}">
-                        {{ __('Forgot Your Password?') }}
-                    </a>
-                </div>
+        <div class="form-group row">
+            <div class="col-md-6">
+                <a class="btn btn-default form-control" href="{{ route('register') }}">Register</a>
             </div>
-        @endif
+            <div class="col-md-6">
+                <a class="btn btn-default form-control" href="{{ route('password.request') }}">Forgot Your Password?</a>
+            </div>
+        </div>
 
     </form>
 </div>
