@@ -1,5 +1,7 @@
 body, body > * {
-    font-family: "Nunito" !important;
+    /* --defaultFont: "Nunito"; */
+    --defaultFont: "Poppins";
+    font-family: var(--defaultFont) !important;
     box-sizing: border-box;
 }
 

@@ -10,65 +10,92 @@
 
     <title>{{ config('app.name') }}</title>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
+    {{-- jquery and bootstrap --}}
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    {{-- <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> --}}
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/sidenavbar.css') }}">
 </head>
 
 <body>
 
-    <style>
-    input.nav-item {
-        border: none;
-        background-color: initial;
-    }
-    </style>
+<div class="wrapper">
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="{{ url('/') }}">{{ config('app.name') }}</a>
-        @auth
-            <span class="">Hey, {{ Auth::user()->name }}!</span>
-        @endAuth
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                @guest
-                    <a class="btn nav-item nav-link" href="{{ route('login') }}">Login</a>
-                    @if (Route::has('register'))
-                        <a class="btn nav-item nav-link" href="{{ route('register') }}">Register</a>
-                    @endif
-                @else
-                    
-                    <a class="nav-item nav-link" href="{{ route('card.index') }}">Cards</a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                        @csrf
-                        <input class="nav-item nav-link" type="submit" value="{{ __('Logout') }}">
-                    </form>
-                @endguest
-            </div>
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <a href="{{ url('/') }}">
+                {{ config('app.name') }}
+            </a>
         </div>
+        
+        <ul class="list-unstyled components">
+                
+            @guest
+            {{-- login e register --}}
+                <li>
+                    <a class="" href="{{ route('login') }}">Login</a>
+                </li>
+                @if (Route::has('register'))
+                    <li>
+                        <a class="" href="{{ route('register') }}">Register</a>
+                    </li>
+                @endif
+            @else
+            {{-- menus e logout --}}
+                <li class="">
+                    <a href="#homeSubmenu" data-toggle="collapse" class="dropdown-toggle">
+                        Hey, {{ Auth::user()->name }}!
+                    </a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <!-- simple item -->
+                        <li>
+                            <form id="" action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <input class="buttonAsLink" type="submit" value="{{ __('Logout') }}">
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a class="" href="{{ route('card.index') }}">Cards</a>
+                </li>
+                
+            @endguest
+            
+            <!-- item dropdown -->
+            {{-- <li class="active">
+                <a href="#homeSubmenu" data-toggle="collapse" class="dropdown-toggle">Home</a>
+                <ul class="collapse list-unstyled" id="homeSubmenu">
+                    <!-- simple item -->
+                    <li>
+                        <a href="#">Home 1</a>
+                    </li>
+                    <!-- simple item -->
+                    <li>
+                        <a href="#">Home 2</a>
+                    </li>
+                    <!-- simple item -->
+                    <li>
+                        <a href="#">Home 3</a>
+                    </li>
+                </ul>
+            </li> --}}
+        </ul>
     </nav>
 
     <main class="container">
         @yield('content')
     </main>
+</div>
 </body>
 
 </html>
