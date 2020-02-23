@@ -10,16 +10,12 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
+Route::get('/', 'Auth\LoginController@showLoginForm');
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('card', 'CardController')->middleware('auth');
 Route::resource('monthlyRecharge', 'MonthlyRechargeController')->middleware('auth');
 Route::resource('day', 'DayController')->middleware('auth');
 Route::resource('activity', 'ActivityController')->middleware('auth');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
