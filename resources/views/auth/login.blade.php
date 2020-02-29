@@ -24,7 +24,12 @@
         border: 1px solid #3e4956;
         box-shadow: none;
     }
+    .loginContainer input[type=email],
+    .loginContainer input[type=password] {
+        padding: 24px 12px;
+    }
 </style>
+
 <div class="loginContainer backgroundcolor">
     <form method="POST" action="{{ route('login') }}">
         @csrf

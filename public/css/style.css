@@ -1,7 +1,11 @@
+html {
+    font-size: 16px;
+}
 body, body > * {
-    /* --defaultFont: "Nunito"; */
-    --defaultFont: "Poppins";
+    --defaultFont: "Nunito";
+    /* --defaultFont: "Poppins"; */
     font-family: var(--defaultFont) !important;
+    /* font-family: Helvetica, sans-serif; */
     box-sizing: border-box;
 }
 
