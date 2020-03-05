@@ -8,6 +8,7 @@
 
 {{--  MODAL BODY  --}}
 @section('modalBody')
+<div class="modal-body">
     @if (session('success'))
     <div class="row">
         <div class="col">
@@ -26,24 +27,18 @@
         </div>
     </div>
     @endif
-
-    <form action="{{ route('card.store') }}" method="POST">
+    <form action="{{ route('card.store') }}" method="POST" id="formNewCard">
         @csrf
         name:<input type="text" name="name" id="">
         acquisition date:<input type="date" name="acquisitionDate" id="">
-        <input type="submit" value="send">
     </form>
-@endsection
-
-{{--  CLOSE BUTTON  --}}
-@section('closeButtonModalFooter')
+</div>
+<div class="modal-footer">
     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <input type="submit"  class="btn btn-default" form="formNewCard" value="Save">
+</div>
 @endsection
 
-{{--  MODAL FOOTER  --}}
-@section('modalFooter')
-    <button type="button" class="btn btn-primary">Save changes</button>
-@endsection
 
 
 @section("@yield('modalId')")
@@ -59,13 +54,9 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                
                     @yield('modalBody')
-                </div>
-                <div class="modal-footer">
-                    @yield('closeButtonModalFooter')
-                    @yield('modalFooter')
-                </div>
+                
             </div>
         </div>
     </div>
@@ -100,7 +91,11 @@
 
 <div class="row">
     <div class="col">
-        <a class="btn btn-primary" href="{{ route('card.create') }}">New Card</a>
+        {{-- <a class="btn btn-default" href="{{ route('card.create') }}">New Card</a> --}}
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#@yield('modalId')">
+            New Card
+        </button>
     </div>
 </div>
 
@@ -118,13 +113,13 @@
                     <td>{{ $card->name }}</td>
                     <td>{{ $card->acquisitionDate }}</td>
                     <td>
-                        <a class="btn btn-sm btn-primary"
+                        <a class="btn btn-sm btn-default"
                             href="{{ route('monthlyRecharge.index', ['card_id' => $card->id]) }}">Recharges</a>
-                        <a class="btn btn-sm btn-primary"
+                        <a class="btn btn-sm btn-default"
                             href="{{ route('monthlyRecharge.create',['card_id' => $card->id]) }}">Apply Recharge</a>
-                        <a class="btn btn-sm btn-primary"
+                        <a class="btn btn-sm btn-default"
                             href="{{ route('activity.index', ['card_id' => $card->id]) }}">Card Usage</a>
-                        <a class="btn btn-sm btn-primary"
+                        <a class="btn btn-sm btn-default"
                             href="{{ route('activity.create',['card_id' => $card->id]) }}">Register Usage</a>
                     </td>
                 </tr>
@@ -133,13 +128,6 @@
         </table>
     </div>
 </div>
-
-
-
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#@yield('modalId')">
-    Launch demo modal
-</button>
 
 @yield("@yield('modalId')")
 
